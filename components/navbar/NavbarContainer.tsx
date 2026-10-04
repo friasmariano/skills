@@ -253,7 +253,7 @@ export default function Navbar() {
                             />
                         </Link>
                         <h1 style={{ fontSize: '1.1rem',
-                                     margin: '5px 0px 0px 10px', }}>Portfolio Base</h1>
+                                     margin: '5px 0px 0px 10px', }}>Skills</h1>
                     </div>
 
                     <ul className="navbar-list flex gap-10 list-none">

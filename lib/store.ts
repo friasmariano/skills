@@ -3,10 +3,12 @@ import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
 import themeReducer from "./features/theme/store/theme-slice";
 import toastReducer from "./features/toast/store/toast-slice";
+import featuredReducer from "./features/featured/store/featured-slice";
 
 const rootReducer = combineReducers({
   theme: themeReducer,
   toast: toastReducer,
+  featured: featuredReducer,
 });
 
 const persisteConfig = {

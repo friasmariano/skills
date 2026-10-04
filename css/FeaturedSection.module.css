@@ -1,0 +1,79 @@
+.section {
+  --section-background: linear-gradient(145deg, rgba(205, 245, 252, 0.22), rgba(128, 213, 239, 0.12));
+  --card-background: linear-gradient(150deg, rgba(221, 250, 255, 0.65), rgba(148, 218, 240, 0.3));
+  --focused-background: linear-gradient(150deg, rgba(214, 250, 255, 0.8), rgba(94, 192, 227, 0.5));
+  --card-text: #102f49;
+  --card-muted: #345a70;
+  --card-accent: #12658d;
+  --card-border: rgba(45, 129, 174, 0.25);
+}
+.section[data-theme="dark"] {
+  --section-background: linear-gradient(145deg, rgba(13, 40, 69, 0.3), rgba(5, 24, 48, 0.15));
+  --card-background: linear-gradient(150deg, rgba(23, 58, 96, 0.55), rgba(7, 24, 51, 0.35));
+  --focused-background: linear-gradient(150deg, rgba(38, 95, 145, 0.65), rgba(9, 39, 79, 0.45));
+  --card-text: #f0f8ff;
+  --card-muted: #bed3e5;
+  --card-accent: #8ecff6;
+  --card-border: rgba(142, 207, 246, 0.25);
+}
+.section {
+  margin-top: 25px;
+  padding: clamp(24px, 4vw, 64px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 24px;
+  background: var(--section-background);
+  color: var(--card-text);
+}
+.header { margin-bottom: 32px; }
+.eyebrow { margin: 0 0 10px; color: var(--card-accent); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; }
+.heading { margin: 0; font-size: clamp(1.6rem, 3vw, 2.5rem); font-weight: 500; letter-spacing: -0.04em; }
+.grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; margin: 0; padding: 0; list-style: none; }
+.card {
+  display: flex;
+  cursor: pointer;
+  flex-direction: column;
+  min-width: 0;
+  padding: clamp(22px, 2.2vw, 36px);
+  border: 1px solid var(--card-border);
+  border-radius: 32px;
+  background: var(--card-background);
+  box-shadow: 0 0 0 5px rgba(125, 190, 235, 0.035), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: transform 220ms ease, border-color 220ms ease, background-color 220ms ease, box-shadow 220ms ease;
+}
+.highlighted { background: var(--focused-background); border-color: var(--card-accent); box-shadow: 0 0 0 5px rgba(125, 190, 235, 0.08), 0 12px 32px rgba(56, 139, 210, 0.15); }
+.cardHeader { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.badge { padding: 8px 12px; border-radius: 999px; background: rgba(255, 255, 255, 0.045); color: var(--card-accent); font-size: 0.75rem; line-height: 1.4; }
+.number { color: var(--card-muted); font-size: 0.75rem; }
+.symbol { display: block; margin: 40px 0 32px; color: var(--card-accent); font-family: monospace; font-size: 2.6rem; letter-spacing: -0.06em; }
+.content { margin-top: auto; }
+.title { margin: 0 0 16px; font-size: clamp(1.35rem, 1.7vw, 1.9rem); font-weight: 500; line-height: 1.2; letter-spacing: -0.035em; overflow-wrap: anywhere; }
+.description { margin: 0; color: var(--card-muted); font-size: 0.9rem; line-height: 1.7; }
+.highlighted .description { color: var(--card-muted); }
+@media (hover: hover) {
+  .card:hover {
+    transform: translateY(-5px);
+    background: linear-gradient(160deg, rgba(251, 146, 60, 0.14), rgba(249, 115, 22, 0.07)), var(--card-background);
+    border-color: rgba(251, 146, 60, 0.7);
+    box-shadow: 0 0 0 5px rgba(249, 115, 22, 0.06), 0 12px 32px rgba(249, 115, 22, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+  .card:hover .badge, .card:hover .symbol { color: #fdba74; }
+}
+@media (max-width: 1100px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 580px) { .grid { grid-template-columns: minmax(0, 1fr); gap: 20px; } .card { border-radius: 26px; } .symbol { margin: 28px 0; } }
+@media (prefers-reduced-motion: reduce) { .card { transition: none; } .card:hover { transform: none; } }
+
+.focusButton {
+  align-self: flex-start;
+  margin-top: 24px;
+  padding: 10px 16px;
+  border: 1px solid var(--card-border);
+  border-radius: 999px;
+  background: rgba(128, 190, 235, 0.12);
+  color: var(--card-text);
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.focusButton[aria-pressed="true"] { border-color: var(--card-accent); background: rgba(128, 190, 235, 0.24); }
+.focusButton:focus-visible { outline: 2px solid var(--card-accent); outline-offset: 4px; }
+@media (hover: hover) { .focusButton:hover { border-color: #fb923c; } }

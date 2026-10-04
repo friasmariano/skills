@@ -51,9 +51,11 @@ export default function Banner() {
 
         <div style={{ padding: '80px 20px 90px 100px' }}>
           <h1 style={{ fontSize: '4.5rem'}}>
-            Portfolio Base
+            Skills
           </h1>
-          <h2 style={{ fontSize: '1.4rem', marginTop: '0px'}}>Your Digital Creation Pipeline</h2>
+          <h2 style={{ fontSize: '1.4rem', marginTop: '0px'}}>
+            Your Developer Gym
+          </h2>
         </div>
 
         {/* Bottom */}
