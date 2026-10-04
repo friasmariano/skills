@@ -1,0 +1,152 @@
+
+.container {
+  grid-area: banner !important;
+
+  background-color: rgba(255, 255, 255, 0.03);
+  border-radius: 20px;
+  backdrop-filter: blur(0px);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.box {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.imageWrapper {
+  position: relative;
+  width: clamp(220px, 40vw, 400px);
+  aspect-ratio: 1 / 1;
+}
+
+.badge {
+  display: flex;
+  align-items: center;
+  margin-top: -10px;
+}
+
+.image {
+  object-fit: contain;
+  padding: 0;
+}
+
+.titleBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  object-fit: contain;
+}
+
+.cta {
+  background: var(--home-cta-background);
+  width: 180px;
+  height: 40px;
+  border-radius: 60px;
+  color: var(--home-cta-text);
+  text-decoration: none;
+  font-weight: 500;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  cursor: pointer;
+  padding: 9px 0px 0px 27px;
+  margin-left: 25px;
+}
+
+@media (min-width: 0px) and (max-width: 768px) {
+  .box {
+    margin-top: 16px;
+    flex-direction: column;
+  }
+  .container {
+    padding: 30px 0px 0px 0px;
+  }
+  .image {
+    margin: 0 0 0 0px;
+  }
+  .titleBox {
+    transform: translateY(-64px);
+  }
+  .title {
+    margin-top: 8px;
+    margin-left: 0px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .box {
+    margin-top: 50px;
+    flex-direction: column;
+  }
+  .image {
+    margin: 0 0 0 42px;
+  }
+  .titleBox {
+    transform: translateY(-64px);
+  }
+  .title {
+    margin-left: 21px;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1250px) {
+  .box {
+    margin-top: 50px;
+    flex-direction: column;
+  }
+  .image {
+    margin: 0 0 0 52px;
+  }
+  .titleBox {
+    transform: translateY(-64px);
+  }
+  .title {
+    margin-left: 21px;
+  }
+}
+
+@media (min-width: 1251px) and (max-width: 1440px) {
+  .box {
+    margin-top: 50px;
+    flex-direction: row !important;
+  }
+  .image {
+    margin: 0 0 0 52px;
+  }
+  .titleBox {
+    transform: translateY(35px);
+  }
+  .title {
+    margin-left: 21px;
+  }
+}
+
+@media (min-width: 1441px) {
+  .container {
+    align-items: normal;
+    justify-content: normal;
+  }
+  .box {
+    display: flex !important;
+    margin-top: 50px;
+    flex-direction: row !important;
+    align-items: normal;
+    justify-content: space-between;
+  }
+  .image {
+    margin: 0 0 0 10vw;
+  }
+  .titleBox {
+    transform: translateY(5vh);
+    margin: 4.5% 25vw 0 0;
+  }
+  .title {
+    margin-left: 21px;
+  }
+}

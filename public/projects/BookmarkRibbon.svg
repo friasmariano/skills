@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 91.92 155.16">
+  <defs>
+    <style>
+      .cls-1 {
+        filter: url(#drop-shadow-2);
+      }
+
+      .cls-2 {
+        fill: url(#radial-gradient);
+      }
+
+      .cls-3 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-4 {
+        isolation: isolate;
+      }
+
+      .cls-5 {
+        fill: #fff;
+      }
+
+      .cls-6 {
+        fill: url(#linear-gradient-3);
+        filter: url(#drop-shadow-1);
+      }
+
+      .cls-7 {
+        fill: url(#linear-gradient-2);
+        mix-blend-mode: overlay;
+        opacity: .4;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="46.01" y1="155.4" x2="46.01" y2="74.16" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2b181f"/>
+      <stop offset=".54" stop-color="#f40606"/>
+      <stop offset="1" stop-color="#991f1f"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="46.01" y1="78.88" x2="46.01" y2="139.15" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff" stop-opacity=".2"/>
+      <stop offset="1" stop-color="#fff"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-3" x1="46.01" y1="23.94" x2="46.01" y2="70.32" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f40606"/>
+      <stop offset=".3" stop-color="#ff7373"/>
+      <stop offset=".65" stop-color="#f40606"/>
+      <stop offset=".87" stop-color="#851f1f"/>
+    </linearGradient>
+    <filter id="drop-shadow-1" x="20.16" y="33.12" width="53.76" height="42.96" filterUnits="userSpaceOnUse">
+      <feOffset dx="1" dy="3"/>
+      <feGaussianBlur result="blur" stdDeviation="2"/>
+      <feFlood flood-color="#000" flood-opacity=".3"/>
+      <feComposite in2="blur" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="drop-shadow-2" x="32.4" y="119.04" width="29.28" height="28.32" filterUnits="userSpaceOnUse">
+      <feOffset dx="1" dy="3"/>
+      <feGaussianBlur result="blur-2" stdDeviation="2"/>
+      <feFlood flood-color="#000" flood-opacity=".31"/>
+      <feComposite in2="blur-2" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <radialGradient id="radial-gradient" cx="41.24" cy="123.67" fx="41.24" fy="123.67" r="16.85" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#cfff00"/>
+      <stop offset="1" stop-color="#f80"/>
+    </radialGradient>
+  </defs>
+  <g class="cls-4">
+    <g id="Layer_1" data-name="Layer 1">
+      <g>
+        <polygon class="cls-3" points="66.7 148.1 46.01 155.16 25.32 148.1 25.32 52.59 66.7 52.59 66.7 148.1"/>
+        <polygon class="cls-7" points="25.32 110.62 25.32 148.1 46.01 155.16 66.7 148.1 66.7 79.06 25.32 110.62"/>
+        <polygon class="cls-6" points="66.7 59.98 46.01 67.04 25.32 59.98 25.32 36.24 66.7 36.24 66.7 59.98"/>
+        <path class="cls-5" d="M36.15,36.24v.02s.31.06.85.13c.54.06,1.31.19,2.23.25.92.06,2,.18,3.16.21,1.16.03,2.39.06,3.62.09,1.23-.03,2.47-.06,3.62-.09,1.16-.02,2.23-.15,3.16-.21.92-.06,1.69-.2,2.23-.26.54-.07.85-.13.85-.13h-19.72Z"/>
+        <image width="383" height="304" transform="scale(.24)" xlink:href="data:image/png;base64,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"/>
+      </g>
+      <g class="cls-1">
+        <polygon class="cls-2" points="46.01 122.05 48.98 126.94 54.55 128.25 50.81 132.59 51.29 138.29 46.01 136.07 40.73 138.29 41.21 132.59 37.47 128.25 43.04 126.94 46.01 122.05"/>
+      </g>
+    </g>
+  </g>
+</svg>

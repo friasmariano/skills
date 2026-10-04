@@ -1,0 +1,98 @@
+
+.card {
+   width: 92vw;
+   min-height: 25vh;
+
+   display: flex;
+   min-width: 200px;
+   border-radius: 20px;
+   padding: 0 30px 25px 20px;
+   cursor: pointer;
+
+   transition: transform 0.35s ease;
+}
+
+.card:hover {
+    transform: scale(1.045);
+}
+
+.separator {
+  width: 1.5px;
+  height: 120px;
+  background: var(--contact-card-separator);
+}
+
+.textPanel {
+  display: flex;
+  margin: 0px 0px 0px 0px;
+
+  align-items: normal;
+  justify-content: center;
+  text-align: left;
+
+  padding: 0 0 0 20px;
+}
+
+.title {
+    font-size: 1.6rem;
+    margin: 0;
+    padding: 0;
+}
+
+.tagline {
+    font-size: 1.05rem;
+    margin: 5px 3px 0px 0px;
+    padding: 0;
+}
+
+.text {
+    display: flex;
+    flex-direction: column;
+}
+
+@media (min-width: 0px) and (max-width: 768px) {
+    .card {
+        height: 15vh !important;
+
+        gap: 0;
+
+        border: 1px solid rgba(255, 255, 255, 0.2);
+
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .separator {
+        height: 80px;
+        margin: auto;
+        display: none;
+    }
+    .textPanel {
+        padding: 0;
+        flex-direction: column !important;
+        text-align: center;
+    }
+}
+
+@media (min-width: 769px) {
+    .card {
+        height: 15vh !important;
+
+        gap: 20px;
+
+        padding-top: 30px;
+    }
+    .separator {
+        height: 100px;
+        margin: 0px 20px 0px 2vw;
+    }
+    .textPanel {
+        padding: 0;
+        flex-direction: column !important;
+        text-align: left;
+        gap: 30px !important;
+    }
+    .text {
+        margin: 8px 10px 0px 3vw !important;
+    }
+}

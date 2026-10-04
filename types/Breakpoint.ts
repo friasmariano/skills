@@ -1,0 +1,1 @@
+export type Breakpoint = 'mobile' | 'tablet' | 'desktop-sm' | 'desktop-md' | 'desktop' | 'large';

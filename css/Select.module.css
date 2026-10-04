@@ -1,0 +1,136 @@
+.button {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    padding: 13px 20px 13px 13px;
+    border-radius: 20px;
+    font-weight: 500;
+    font-size: 1.07rem;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+/* .button:hover {
+    box-shadow: 0 1px 13px rgba(0, 0, 0, 0.3);
+} */
+
+.optionsPanel {
+    display: flex;
+    width: 327px;
+    max-width: calc(100vw - 32px);
+    box-sizing: border-box;
+
+    flex-direction: column;
+    margin: 15px 0px 5px 0px;
+
+    position: fixed;
+    top: auto;
+    left: auto;
+
+    transform: none;
+    padding: 29px 0px 35px 25px;
+    border-radius: 20px;
+    height: 219.5px;
+    gap: 7px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 7px 13px rgba(0, 0, 0, 0.12);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.fadeIn {
+    animation: fadeIn 1.15s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.fadeOut {
+    animation: fadeOut 3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@media (min-width: 0px) and (max-width: 1023px) {
+    .optionsPanel {
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, 10%);
+
+        box-shadow: none;
+
+        background-color: none;
+        background: var(--options-panel-background);
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translate(-50%, 10%);
+        }
+        to {
+            opacity: 1;
+            transform: translate(-50%, 18%);
+        }
+    }
+
+    @keyframes fadeOut {
+        from {
+            opacity: 1;
+        }
+        to {
+            opacity: 0;
+        }
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        position: relative;
+    }
+
+    .optionsPanel {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        left: auto;
+
+        box-shadow: none;
+
+        background-color: none;
+        background: var(--options-panel-background);
+        z-index: 1;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-8%);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0%);
+        }
+    }
+
+    @keyframes fadeOut {
+        from {
+            opacity: 1;
+        }
+        to {
+            opacity: 0;
+        }
+    }
+}
+
+
+.radioHidden {
+     position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    width: 1px;
+    height: 1px;
+}
+
+.radioHidden:focus-visible + * {
+    outline: 2px solid rgb(248, 105, 38);
+    outline-offset: 3px;
+}
