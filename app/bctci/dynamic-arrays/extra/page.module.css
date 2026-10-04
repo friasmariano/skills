@@ -1,0 +1,57 @@
+.content h2 {
+  margin: 32px 0 16px;
+  font-size: 1.4em;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.content h3 {
+  margin: 24px 0 12px;
+  font-size: 1.15em;
+  font-weight: 700;
+}
+
+.content ol,
+.content ul {
+  margin: 0 0 24px;
+  padding-left: 1.5em;
+}
+
+.content ol { list-style: decimal; }
+.content ul { list-style: disc; }
+.content li + li { margin-top: 12px; }
+
+.content code {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.9em;
+  overflow-wrap: anywhere;
+}
+
+.content pre {
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 20px;
+  margin-bottom: 24px;
+  border: 1px solid currentColor;
+  border-radius: 12px;
+  line-height: 1.6;
+}
+
+.content pre code { overflow-wrap: normal; }
+.content a { text-decoration: underline; text-underline-offset: 3px; }
+.figure { margin: 24px 0; }
+.diagram { overflow-x: auto; padding-bottom: 12px; }
+.diagram > div + div { margin-top: 20px; }
+.array { display: flex; width: max-content; margin: 8px 0; }
+.slot { display: flex; flex-direction: column; text-align: center; width: 36px; }
+.index { font-size: 0.75em; opacity: 0.7; }
+.cell { border: 1px solid currentColor; font-family: var(--font-geist-mono), monospace; }
+.slot + .slot .cell { border-left: 0; }
+.figure figcaption { margin-top: 8px; font-size: 0.9em; }
+.note { border-left: 3px solid currentColor; padding: 12px 20px; margin-bottom: 24px; }
+.tableWrapper { overflow-x: auto; margin-bottom: 24px; }
+.content table { width: 100%; border-collapse: collapse; text-align: left; }
+.content caption { text-align: left; margin-bottom: 12px; }
+.content th, .content td { padding: 10px 16px; border-bottom: 1px solid currentColor; }
+.content thead th { font-weight: 700; }
+.content tbody th { font-weight: 400; }

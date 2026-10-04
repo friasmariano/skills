@@ -1,0 +1,28 @@
+.readme {
+  box-sizing: border-box;
+  min-height: 100%;
+  margin: 0 0 40px 20px;
+  padding: clamp(24px, 4vw, 56px);
+  color: var(--foreground);
+  background: var(--panel-background);
+  border-radius: 20px;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  line-height: 1.8;
+}
+
+.readme h1 {
+  margin: 0 0 24px;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+}
+
+.readme p {
+  margin: 0 0 24px;
+}
+
+.readme p:last-child {
+  margin-bottom: 0;
+}

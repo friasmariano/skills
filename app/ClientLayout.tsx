@@ -1,14 +1,14 @@
 
 'use client'
 
-import { usePathname } from "next/navigation"
 import StoreProvider from "./StoreProvider";
 import Navbar from "@/components/navbar/NavbarContainer";
-import Hero from "@/components/Hero";
+import Banner from "@/components/Banner";
 import Main from "@/components/Main";
 import Footer from "@/components/Footer";
 import ThemeProvider from "./ThemeProvider";
 import ToastNew from "@/components/ToastNew";
+import SidebarContainer from "@/components/sidebar/SidebarContainer";
 
 export default function ClientLayout({
     children,
@@ -16,18 +16,17 @@ export default function ClientLayout({
     children: React.ReactNode
 }) {
 
-    const pathname = usePathname();
-
-    const showHero = pathname !== "/";
-
     return(
-        <div className={`body-grid ${!showHero ? "no-hero" : ""}`}>
+        <div className="body-grid">
             <StoreProvider>
                 <Navbar />
-                {showHero && <Hero /> }
-                <Main>
-                    {children}
-                </Main>
+                <Banner />
+                <div className="app-content">
+                    <SidebarContainer />
+                    <Main>
+                        {children}
+                    </Main>
+                </div>
 
                 <ToastNew />
 

@@ -118,20 +118,9 @@ body {
 
 .body-grid {
   display: grid;
-  grid-template-areas:
-    "navbar"
-    "hero"
-    "main"
-    "footer";
-  grid-template-rows: 80px 40vh 1fr auto !important;
-}
-
-.body-grid.no-hero {
-  grid-template-areas:
-    "navbar"
-    "main"
-    "footer";
-  grid-template-rows: 80px 1fr auto !important;
+  grid-template-areas: "navbar" "hero" "content" "footer";
+  grid-template-rows: 80px auto 1fr auto;
+  min-height: 100dvh;
 }
 
 @media (min-width: 993px) {
@@ -1505,4 +1494,24 @@ header {
             transform: translateY(0);
     opacity: 1;
   }
+}
+
+/* The hero spans the app; navigation sits beside the content below it. */
+.app-content {
+  grid-area: content;
+  display: grid;
+  grid-template-columns: 255px minmax(0, 1fr);
+  position: relative;
+  min-width: 0;
+  margin-top: 14px;
+}
+.app-content > .main { min-width: 0; }
+.body-grid .nav-burger { display: none; }
+.body-grid .navbar { width: 100%; }
+.body-grid .nav-end .navbar-list { display: flex; }
+@media (min-width: 640px) and (max-width: 991px) {
+  .app-content { grid-template-columns: 200px minmax(0, 1fr); }
+}
+@media (max-width: 639px) {
+  .app-content { grid-template-columns: minmax(0, 1fr); }
 }

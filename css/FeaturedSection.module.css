@@ -27,6 +27,7 @@
 .heading { margin: 0; font-size: clamp(1.6rem, 3vw, 2.5rem); font-weight: 500; letter-spacing: -0.04em; }
 .grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; margin: 0; padding: 0; list-style: none; }
 .card {
+  scroll-margin-top: 100px;
   display: flex;
   cursor: pointer;
   flex-direction: column;
@@ -54,7 +55,7 @@
   }
   .card:hover .badge, .card:hover .symbol { color: var(--card-hover-text); }
 }
-@media (max-width: 1100px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 1350px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 580px) { .grid { grid-template-columns: minmax(0, 1fr); gap: 20px; } .card { border-radius: 26px; } .symbol { margin: 28px 0; } }
 @media (prefers-reduced-motion: reduce) { .card { transition: none; } .card:hover { transform: none; } }
 

@@ -19,11 +19,20 @@ import DeviceTheme from "@/types/DeviceTheme";
 import selectStyles from '@/css/Select.module.css'
 import ContactModal from "../ContactModal";
 import { hideToast, showToast } from "@/lib/features/toast/store/toast-slice";
+import { setFocusedCard, type FeaturedCardId } from "@/lib/features/featured/store/featured-slice";
+
+const featuredItems: { id: FeaturedCardId; title: string }[] = [
+    { id: "interview", title: "Beyond Cracking" },
+    { id: "frontend", title: "Front End Challenges" },
+    { id: "react", title: "React Playground" },
+    { id: "typescript", title: "Typescript Ventures" },
+];
 
 export default function Navbar() {
     const pathname = usePathname();
     const dispatch = useAppDispatch();
     const breakpoint = useBreakpoint();
+    const focusedCardId = useAppSelector((state) => state.featured.focusedCardId);
     const isDark = useAppSelector((state) => state.theme.data.isDark);
     const [ctaDark, setctaDark] = useState('');
     const [ctaTextColor, setctaTextColor] = useState('');
@@ -81,19 +90,13 @@ export default function Navbar() {
 
     const [menuOpen, setMenuOpen] = useState(false);
 
-    const linkClass = (href: string) =>
-        `transition ${
-            pathname === href
-                ? "text-white font-bold"
-                : "text-white/55 hover:text-white"
-    }`;
+    const featureClass = (id: FeaturedCardId) =>
+        `transition cursor-pointer ${focusedCardId === id ? "font-bold" : "opacity-70"} hover:opacity-100 hover:text-orange-400`;
 
-    const linkClassMobile = (href: string) =>
-        `transition ${
-            pathname === href
-                ? "text-white font-bold"
-                : "text-white/80 hover:text-white"
-    }`;
+    const focusFeature = (id: FeaturedCardId) => {
+        dispatch(setFocusedCard(id));
+        setMenuOpen(false);
+    };
 
     // Device Setting
     const handleThemeSettingSelect = (item: ThemeOptions) => {
@@ -195,16 +198,18 @@ export default function Navbar() {
                     aria-hidden>
 
                     <div className={`portal-content ${menuOpen ? 'is-active' : ''}`}>
-                        <Link href="/projects" className={`portal-item ${linkClassMobile("/projects")}`}>
-                            Item1
-                        </Link>
-                        <Link href="/experience" className={`portal-item ${linkClassMobile("/experience")}`}>
-                            Item2
-                        </Link>
-                        <Link href="/about" className={`portal-item ${linkClassMobile("/about")}`}>
-                            Item3
-                        </Link>
-                        <div className={`portal-item ${linkClassMobile("/contact")}`}
+                        {featuredItems.map((item) => (
+                            <button
+                                key={item.id}
+                                type="button"
+                                className={`portal-item ${featureClass(item.id)}`}
+                                aria-pressed={focusedCardId === item.id}
+                                onClick={() => focusFeature(item.id)}
+                            >
+                                {item.title}
+                            </button>
+                        ))}
+                        <div className="portal-item"
                              onClick={(e) => e.stopPropagation()}>
                             <div className={`${styles.container} `}>
                                 {/* Overlay version */}
@@ -234,6 +239,12 @@ export default function Navbar() {
 
             <header className="fixed left-0 w-full z-50"
                     style={{ gridArea: 'navbar',
+                             position: 'fixed',
+                             top: 0,
+                             left: 0,
+                             width: '100%',
+                             height: '80px',
+                             zIndex: 50,
                              boxShadow: '0 4px 50px rgba(0,0,0,0.13)' }}>
 
                 {/* Backdrop */}
@@ -256,10 +267,19 @@ export default function Navbar() {
                                      margin: '5px 0px 0px 10px', }}>Skills</h1>
                     </div>
 
-                    <ul className="navbar-list flex gap-10 list-none">
-                        <li><Link href="/projects" className={`nav-link ${linkClass("/projects")}`}>Item</Link></li>
-                        <li><Link href="/experience" className={`nav-link ${linkClass("/experience")}`}>Item</Link></li>
-                        <li><Link href="/about" className={`nav-link ${linkClass("/about")}`}>Item</Link></li>
+                    <ul className="navbar-list flex gap-10 list-none" style={{ display: 'none' }}>
+                        {featuredItems.map((item) => (
+                            <li key={item.id}>
+                                <button
+                                    type="button"
+                                    className={`nav-link ${featureClass(item.id)}`}
+                                    aria-pressed={focusedCardId === item.id}
+                                    onClick={() => focusFeature(item.id)}
+                                >
+                                    {item.title}
+                                </button>
+                            </li>
+                        ))}
                     </ul>
 
                     <div className="nav-end">

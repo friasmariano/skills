@@ -7,7 +7,8 @@ export default function Footer() {
         <footer className="footer bg-[ #ededed]/60 backdrop-blur-md z-50"
                 style={{ textAlign: 'center', fontSize: '0.9rem',
                          padding: '25.5px 0px 30px 0px',
-                         boxShadow: '0 4px 70px rgba(0,0,0,0.1)', }}>
+                         boxShadow: '0 4px 70px rgba(0,0,0,0.1)',
+                         marginTop: '15px' }}>
             © {currentYear} Mariano Frias. All rights reserved.
         </footer>
     );
