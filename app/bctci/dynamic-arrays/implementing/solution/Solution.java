@@ -1,4 +1,6 @@
 
+package solution;
+
 public class Solution {
     public int [] dynamic;
     public int capacity;
@@ -35,8 +37,12 @@ public class Solution {
         return dynamic[i];
     }
 
-    pubic int size() {
+    public int size() {
         return count;
+    }
+
+    public int getCapacity() {
+        return capacity;
     }
 
     public void set(int index, int value) {
@@ -67,7 +73,7 @@ public class Solution {
         count--;
 
         // If you are using less than 25% capacity
-        if (count * 4 < capacity ** capacity < 10) {
+        if (count * 4 < capacity && capacity > 10) {
             resize(capacity / 2);
         }
     }
