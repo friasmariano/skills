@@ -13,7 +13,7 @@
 .link { display: flex; align-items: center; gap: 16px; padding: 16px; border-radius: 14px; color: var(--foreground); text-decoration: none; font-size: .9rem; line-height: 1.5; background: transparent; border: 1px solid transparent; }
 nav > .links > li { border-left: 1px solid color-mix(in srgb, var(--foreground) 18%, transparent); }
 .link:hover { background: color-mix(in srgb, var(--foreground) 20%, transparent); }
-.active { background: color-mix(in srgb, var(--foreground) 20%, transparent); font-weight: 600; }
+.active { margin-left: 10px; background: color-mix(in srgb, var(--foreground) 20%, transparent); font-weight: 600; }
 .ancestor { font-weight: 600; }
 .link:focus-visible, .toggler:focus-visible, .close:focus-visible { outline: 2px solid var(--foreground); outline-offset: 3px; }
 .toggler { display: none; }

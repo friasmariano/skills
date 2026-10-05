@@ -58,6 +58,9 @@ export default function Modal({ isOpen, onClose, children,
                     display: 'flex',
                     flexDirection: 'column'
                 }}
+                role="dialog"
+                aria-modal="true"
+                aria-label={title}
                 onClick={(e) => e.stopPropagation()}>
 
                     {/* Header */}
@@ -97,7 +100,8 @@ export default function Modal({ isOpen, onClose, children,
                                   justifyContent: 'center',
                                   alignItems: 'center',
                                   flexDirection: 'column',
-                                  minHeight: '300px' }}>
+                                  minHeight: 0,
+                                  overflowY: 'auto' }}>
                         {children}
                     </div>
 

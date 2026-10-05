@@ -19,6 +19,12 @@ export const appPages: AppPage[] = [
         subtitle: 'Explore how arrays grow and work under the hood.',
         children: [
           {
+            href: '/bctci/dynamic-arrays/implementing',
+            title: 'Implementing Dynamic Arrays',
+            navigationTitle: 'Implementing',
+            subtitle: 'Build a dynamic array with fixed-size storage and amortized constant-time updates.',
+          },
+          {
             href: '/bctci/dynamic-arrays/extra',
             title: 'Extra Dynamic Arrays',
             navigationTitle: 'Extra',

@@ -1,22 +1,14 @@
 import styles from "@/css/Bctci.module.css";
-import extraStyles from "./page.module.css";
-
-const popCode = `def pop(self, i):
-    if i < 0 or i >= self._size:
-        raise IndexError('Index out of bounds')
-    saved_element = self.fixed_array[i]
-    # Replace each element with its neighbor to the right.
-    for index in range(i, self._size - 1):
-        self.fixed_array[index] = self.fixed_array[index + 1]
-    self.pop_back()
-    return saved_element`;
+import extraStyles from "../implementing/page.module.css";
+import JavaSolutionModal from "../implementing/JavaSolutionModal";
+import { highlightedExtraSolution } from "./javaSolution";
 
 const operations = [
   ["append(x)", "O(1) (amortized)"],
   ["get(i)", "O(1)"],
   ["set(i, x)", "O(1)"],
   ["size()", "O(1)"],
-  ["pop_back()", "O(1) (amortized)"],
+  ["popBack()", "O(1) (amortized)"],
   ["pop(i)", "O(n)"],
   ["contains(x)", "O(n)"],
   ["insert(i, x)", "O(n)"],
@@ -26,9 +18,9 @@ const operations = [
 export default function Extra() {
   return (
     <article className={`${styles.readme} ${extraStyles.content}`} aria-labelledby="extra-title">
-      {/* <h1 id="extra-title">Extra Dynamic Array Operations</h1> */}
+      <h2 id="extra-title">Extra Dynamic Array Operations</h2>
       <p>
-        The analysis of <code>pop_back()</code> is similar to append: O(n) in
+        The analysis of <code>popBack()</code> is similar to append: O(n) in
         the worst case, but O(1) amortized time per operation over the course
         of a program.
       </p>
@@ -61,26 +53,27 @@ export default function Extra() {
       </ol>
 
       <h2>Solution 25.2: Extra Dynamic Array Operations</h2>
+      <div className={extraStyles.solutionButtons}>
+        <JavaSolutionModal highlightedCode={highlightedExtraSolution} buttonLabel="View example solution" title="DynamicArrayExtras · Java" />
+      </div>
       <h3>1. Pop</h3>
       <p>
         If i is <code>size - 1</code>, removing the last element is the same
-        as <code>pop_back()</code>. Otherwise, shift all elements after i one
-        slot left to keep them contiguous. Then call <code>pop_back()</code>
+        as <code>popBack()</code>. Otherwise, shift all elements after i one
+        slot left to keep them contiguous. Then call <code>popBack()</code>
         to reduce the size and handle resizing if necessary.
       </p>
-      <pre aria-label="Python implementation of pop"><code>{popCode}</code></pre>
       <figure className={extraStyles.figure}>
         <div className={extraStyles.diagram}>
           {[
             { label: "Before pop(2)", values: [3, 1, 4, 1, 5, 9, 2], size: 7 },
             { label: "After pop(2)", values: [3, 1, 1, 5, 9, 2], size: 6 },
           ].map(({ label, values, size }) => (
-            <div key={label}>
+            <div key={label} className={extraStyles.arrayContainer}>
               <strong>{label}</strong>
               <div className={extraStyles.array}>
                 {Array.from({ length: 10 }, (_, index) => (
-                  <div key={index} className={extraStyles.slot}>
-                    <span className={extraStyles.index}>{index}</span>
+                  <div key={index} className={`${extraStyles.slot} ${index < values.length ? extraStyles.used : extraStyles.empty}`}>
                     <span className={extraStyles.cell} aria-label={`Index ${index}: ${values[index] ?? "unused"}`}>
                       {values[index] ?? "\u00a0"}
                     </span>
@@ -98,7 +91,7 @@ export default function Extra() {
       </figure>
       <p>
         The worst case is removing the first element, which shifts n - 1
-        elements and takes O(n) time. Unlike <code>pop_back()</code>,
+        elements and takes O(n) time. Unlike <code>popBack()</code>,
         <code> pop(i)</code> also takes O(n) amortized time: repeatedly popping
         from the front n times takes O(n²) total time.
       </p>

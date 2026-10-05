@@ -1,0 +1,10 @@
+{
+  "engine": "siri",
+  "voice": "Simone",
+  "voiceLabel": "American Siri Voice 2",
+  "assetKey": "en-US:gryphon:female:Simone:premium:50",
+  "language": "en-US",
+  "wordsPerMinute": 165,
+  "sourceDurationSeconds": 276.8698125,
+  "sourceNonSilent": true
+}

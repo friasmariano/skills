@@ -1,0 +1,33 @@
+Let's build a dynamic array, using only fixed-size arrays.
+
+The key idea is simple. The array that stores our integers cannot grow, but we can replace it with a larger array when we need more room.
+
+Start with ten slots and zero elements. Keep track of two different numbers: size and capacity. Size is the number of elements actually stored. Capacity is the number of available slots. In the Java implementation, count tracks size, capacity tracks the available space, and dynamic holds the backing array.
+
+Imagine a bookshelf with ten spaces and three books. Its size is three, but its capacity is ten. The empty spaces are room for future elements. They are not valid elements you can read.
+
+That distinction explains our bounds checks. Get and set accept an index only when it is at least zero and strictly less than count. With three stored elements, the valid indices are zero, one, and two. Index seven is invalid, even though the backing array has ten slots. Get returns the existing value. Set replaces it. Neither operation changes size. The size method simply returns count, without scanning the array.
+
+Now, append. If there is room, write the new value at index count, then increment count. For example, with five elements and ten slots, appending nine writes nine at index five. Size becomes six, and capacity stays ten.
+
+What happens when all ten slots are occupied? First, double capacity to twenty. Allocate a new fixed-size array, copy the ten live elements into it in order, and replace the old backing array. Then write the new value at index ten and increment count to eleven.
+
+Why double, instead of adding just one slot? Growing by one would make every append copy almost everything already stored. Doubling creates enough spare room for many inexpensive appends before another copy is needed.
+
+A resize helper keeps this logic reusable. It allocates the requested capacity, copies the elements from index zero up to count minus one, and updates both the backing array and capacity. Copy live elements only. Unused slots do not belong to the logical array.
+
+Next, pop back. If count is zero, raise an error. Otherwise, decrement count. The former last element is now outside the valid index range. For integers, clearing that slot is unnecessary. For object references, clear it so the array does not keep an unused object alive.
+
+We also want to reclaim storage, but shrinking too eagerly creates a problem. If we shrink near the growth threshold, alternating an append and a removal can repeatedly copy the entire array.
+
+Instead, shrink only when size falls strictly below one quarter of capacity. Halve the capacity, and never let it fall below the initial ten slots. For example, at capacity forty and size ten, do not shrink yet. After a removal brings size to nine, shrink to twenty. The array now has room before it needs to grow again. That gap between the thresholds prevents repeated resizing after just one append or removal.
+
+Finally, let's analyze the cost. Get, set, and size take constant time. Append and pop back also take constant time when no resizing occurs. A resize copies the live elements, so an individual append or removal can take linear time.
+
+But across a long sequence, the average cost per operation is bounded by a constant. This is called amortized constant time. It is a guarantee about the total work across a sequence, not a claim that every operation is fast.
+
+For repeated appends, the capacities grow geometrically: ten, twenty, forty, eighty, and so on. The total number of copies is bounded by a constant times the number of appends. Add the cost of writing each new element, and the whole sequence still takes linear time. Dividing by the number of operations gives constant amortized time per append. The separate shrinking threshold also gives pop back constant amortized time, even when appends and removals are mixed.
+
+Storage takes linear space in the number of elements, with a minimum of ten slots. During resizing, the old and new arrays temporarily coexist, so the extra space is also linear.
+
+Remember these three rules: distinguish size from capacity, double when full, and halve only below one quarter full, while preserving the minimum capacity. Those rules turn fixed-size storage into a practical dynamic array.
