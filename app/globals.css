@@ -1500,7 +1500,7 @@ header {
 .app-content {
   grid-area: content;
   display: grid;
-  grid-template-columns: 255px minmax(0, 1fr);
+  grid-template-columns: auto minmax(0, 1fr);
   position: relative;
   min-width: 0;
   margin-top: 14px;
@@ -1510,7 +1510,7 @@ header {
 .body-grid .navbar { width: 100%; }
 .body-grid .nav-end .navbar-list { display: flex; }
 @media (min-width: 640px) and (max-width: 991px) {
-  .app-content { grid-template-columns: 200px minmax(0, 1fr); }
+  .app-content { grid-template-columns: auto minmax(0, 1fr); }
 }
 @media (max-width: 639px) {
   .app-content { grid-template-columns: minmax(0, 1fr); }

@@ -1,12 +1,43 @@
 .desktop {
+  --sidebar-width: 280.5px;
+  position: relative;
+  flex-shrink: 0;
   align-self: stretch;
   min-height: calc(100dvh - 80px);
-  width: 255px;
+  width: var(--sidebar-width);
+  min-width: 0;
+  overflow-x: clip;
+  transition: width 250ms cubic-bezier(0.22, 1, 0.36, 1), padding 250ms cubic-bezier(0.22, 1, 0.36, 1);
   padding: 32px 16px;
   border-right: 1px solid color-mix(in srgb, var(--foreground) 12%, transparent);
   background: transparent;
   z-index: 30;
 }
+.desktop.collapsed { width: 40px; padding: 32px 0; }
+.desktopLinks {
+  width: calc(var(--sidebar-width) - 32px);
+  opacity: 1;
+  transform: translateX(0);
+  visibility: visible;
+  transition: opacity 180ms cubic-bezier(0.22, 1, 0.36, 1), transform 250ms cubic-bezier(0.22, 1, 0.36, 1), visibility 250ms;
+}
+.collapsed .desktopLinks { opacity: 0; transform: translateX(-16px); visibility: hidden; pointer-events: none; }
+.desktopToggle {
+  position: sticky;
+  top: 88px;
+  display: block;
+  margin: -20px 0 16px auto;
+  width: 28px;
+  height: 28px;
+  border: 1px solid color-mix(in srgb, var(--foreground) 20%, transparent);
+  border-radius: 8px;
+  background: var(--panel-background);
+  color: var(--foreground);
+  cursor: pointer;
+  z-index: 1;
+}
+.collapsed .desktopToggle { margin-right: 6px; }
+.desktopToggle:focus-visible { outline: 2px solid var(--foreground); outline-offset: 3px; }
 .desktop nav { position: sticky; top: 112px; max-height: calc(100dvh - 144px); overflow-y: auto; }
 .desktop nav, .drawer { scrollbar-width: thin; scrollbar-color: rgba(255, 255, 255, .2) transparent; }
 .desktop nav::-webkit-scrollbar, .drawer::-webkit-scrollbar { width: 28px; height: 3px; }
@@ -28,10 +59,13 @@ nav > .links > li { border-left: 1px solid color-mix(in srgb, var(--foreground) 
 .toggler { display: none; }
 .mobile { position: fixed; inset: 0; width: 100%; max-width: none; height: 100dvh; max-height: none; padding: 0; margin: 0; border: 0; background: transparent; color: var(--foreground); }
 .mobile::backdrop { background: rgba(2, 22, 39, .45); backdrop-filter: blur(5px); }
-.drawer { width: min(300px, 85vw); height: 100%; overflow-y: auto; padding: 24px 16px; background: transparent; }
+.drawer { width: min(300px, 85vw); height: 100%; overflow-y: auto; padding: 24px 16px; background: linear-gradient(to bottom, var(--panel-background), color-mix(in srgb, var(--foreground) 12%, transparent)); backdrop-filter: blur(20px); animation: drawerEnter 200ms ease-out; }
+@keyframes drawerEnter { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+@media (prefers-reduced-motion: reduce) { .drawer { animation: none; } .desktop, .desktopLinks { transition: none; } }
 .close { display: block; margin: 0 0 28px auto; padding: 10px; background: transparent; border: 0; color: inherit; cursor: pointer; }
 @media (min-width: 640px) and (max-width: 991px) {
-  .desktop { width: 200px; padding: 32px 12px; }
+  .desktop { --sidebar-width: 220px; padding: 32px 12px; }
+  .desktopLinks { width: calc(var(--sidebar-width) - 24px); }
   .desktop .link { padding: 16px 12px; }
 }
 @media (max-width: 639px) {

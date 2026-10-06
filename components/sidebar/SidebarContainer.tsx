@@ -7,6 +7,7 @@ import SidebarToggler from './SidebarToggler';
 
 export default function SidebarContainer() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isDesktopOpen, setIsDesktopOpen] = useState(true);
   const close = useCallback(() => setIsOpen(false), []);
 
   useEffect(() => {
@@ -18,7 +19,7 @@ export default function SidebarContainer() {
 
   return <>
     <SidebarToggler isOpen={isOpen} onToggle={() => setIsOpen(open => !open)} />
-    <SidebarNew />
+    <SidebarNew isOpen={isDesktopOpen} onToggle={() => setIsDesktopOpen(open => !open)} />
     <SidebarMobile isOpen={isOpen} onClose={close} />
   </>;
 }

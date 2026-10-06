@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { togglPreparationSteps } from "@/config/preparationPaths";
 import { togglePreparationStep } from "@/lib/features/opportunities/store/opportunities-slice";
 import styles from "@/css/Opportunities.module.css";
+import pathStyles from "@/css/PreparationPath.module.css";
 
 export default function PreparationPage() {
   const dispatch = useAppDispatch();
@@ -18,34 +19,51 @@ export default function PreparationPage() {
   const completedCount = togglPreparationSteps.filter(step => completed.includes(step.id)).length;
 
   return (
-    <div className={styles.page}>
+    <div className={`${styles.page} ${pathStyles.page}`}>
       <Link className={styles.preparationLink} href="/interview-prep/opportunities">Back to opportunities</Link>
       {opportunity ? (
         <section className={styles.addSection} aria-labelledby="preparation-heading">
-          <p className={styles.company}>{opportunity.company} · In focus</p>
+          <header className={pathStyles.banner}>
+          <div className={pathStyles.bannerHeading}>
+          <p className={pathStyles.bannerCompany}>{opportunity.company} · In focus</p>
           <h2 id="preparation-heading">{opportunity.role} preparation</h2>
           <p className={styles.intro}>
             Follow a preparation path tailored to this opportunity, with assessment
             requirements, practice tasks, and review milestones in one place.
           </p>
+          </div>
+          {hasPath && (
+            <div className={pathStyles.bannerDetails}>
+              <div className={pathStyles.bannerStats}>
+                <span><strong>11</strong> questions</span>
+                <span><strong>32 min</strong> maximum</span>
+                <span><strong>30–240 sec</strong> per question</span>
+                <span><strong>3</strong> unscored practice questions</span>
+              </div>
+              <p>Based on your supplied assessment overview and preparation notes. Work through the steps in order, then mark each one complete.</p>
+              <a className={pathStyles.bannerLink} href="https://toggl.com/candidate-booklet/" target="_blank" rel="noopener noreferrer">Read Toggl’s candidate booklet <span>(opens in a new tab) ↗</span></a>
+            </div>
+          )}
+          </header>
           {hasPath ? (
             <>
-              <div className={styles.assessmentSummary}>
-                <span className={styles.badge}>11 questions</span>
-                <span className={styles.badge}>32 minutes max</span>
-                <span className={styles.badge}>30–240 seconds per question</span>
-                <span className={styles.badge}>3 unscored practice questions</span>
-              </div>
-              <p className={styles.intro}>Based on your supplied assessment overview and preparation notes. Work through the steps in order, then mark each one complete.</p>
-              <a className={styles.preparationLink} href="https://toggl.com/candidate-booklet/" target="_blank" rel="noopener noreferrer">Read Toggl’s candidate booklet (opens in a new tab)</a>
-              <div className={styles.progress}>
-                <label htmlFor="preparation-progress">{completedCount} of {togglPreparationSteps.length} steps complete</label>
+              <div className={pathStyles.progress}>
                 <progress id="preparation-progress" max={togglPreparationSteps.length} value={completedCount} />
+                <label htmlFor="preparation-progress" aria-live="polite">{completedCount} of {togglPreparationSteps.length} steps complete</label>
               </div>
-              <ol className={styles.path}>
+              <ol className={pathStyles.path}>
                 {togglPreparationSteps.map((step, index) => (
-                  <li key={step.id} className={styles.card}>
-                    <p className={styles.company}>Step {index + 1}</p>
+                  <li key={step.id} className={pathStyles.step} data-complete={completed.includes(step.id)}>
+                    <div className={pathStyles.marker} aria-hidden="true">
+                      <span className={pathStyles.pill}>{String(index + 1).padStart(2, "0")}</span>
+                      <span className={pathStyles.cylinder}>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                          {completed.includes(step.id) ? <path d="m5 12 4 4L19 6" /> : <><rect x="5" y="3" width="14" height="18" rx="2" /><path d="M9 8h6M9 12h6M9 16h4" /></>}
+                        </svg>
+                      </span>
+                    </div>
+                    <div className={pathStyles.content}>
+                    <p className={pathStyles.eyebrow}>Step {index + 1} · {completed.includes(step.id) ? "Complete" : "To prepare"}</p>
                     <h3>{step.title}</h3>
                     <p className={styles.stepDescription}>{step.description}</p>
                     <ul className={styles.tasks}>{step.tasks.map(task => <li key={task}>{task}</li>)}</ul>
@@ -53,6 +71,7 @@ export default function PreparationPage() {
                       <input type="checkbox" checked={completed.includes(step.id)} onChange={() => dispatch(togglePreparationStep({ opportunityId: opportunity.id, stepId: step.id }))} />
                       Mark “{step.title}” complete
                     </label>
+                    </div>
                   </li>
                 ))}
               </ol>
