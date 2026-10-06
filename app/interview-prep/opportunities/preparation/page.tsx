@@ -6,6 +6,7 @@ import { togglPreparationSteps } from "@/config/preparationPaths";
 import { togglePreparationStep } from "@/lib/features/opportunities/store/opportunities-slice";
 import styles from "@/css/Opportunities.module.css";
 import pathStyles from "@/css/PreparationPath.module.css";
+import TechnicalReview from "./TechnicalReview";
 
 export default function PreparationPage() {
   const dispatch = useAppDispatch();
@@ -86,6 +87,7 @@ export default function PreparationPage() {
           <p className={styles.intro}>Set an opportunity in focus on the opportunities page to open its preparation path.</p>
         </section>
       )}
+      <TechnicalReview />
     </div>
   );
 }

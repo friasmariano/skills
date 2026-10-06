@@ -1,6 +1,7 @@
 import styles from "@/css/Bctci.module.css";
 import extraStyles from "../implementing/page.module.css";
 import JavaSolutionModal from "../implementing/JavaSolutionModal";
+import LessonNarration from "../implementing/LessonNarration";
 import { highlightedExtraSolution } from "./javaSolution";
 
 const operations = [
@@ -19,6 +20,8 @@ export default function Extra() {
   return (
     <article className={`${styles.readme} ${extraStyles.content}`} aria-labelledby="extra-title">
       <h2 id="extra-title">Extra Dynamic Array Operations</h2>
+      <LessonNarration src="/audio/extra-dynamic-arrays-siri-voice-2.m4a" label="Extra dynamic arrays lesson narration"
+        captionsSrc="/audio/extra-dynamic-arrays-siri-voice-2.vtt" />
       <p>
         The analysis of <code>popBack()</code> is similar to append: O(n) in
         the worst case, but O(1) amortized time per operation over the course
@@ -36,7 +39,7 @@ export default function Extra() {
       <h2>Problem 25.2: Extra Dynamic Array Operations</h2>
       <p>
         Add the following methods to the dynamic array implemented in Problem
-        1. For each method, provide the time analysis.
+        25.1. For each method, provide the time analysis.
       </p>
       <ol>
         <li><strong>Pop:</strong> Add <code>pop(i)</code> to remove the element
@@ -57,6 +60,11 @@ export default function Extra() {
         <JavaSolutionModal highlightedCode={highlightedExtraSolution} buttonLabel="View example solution" title="DynamicArrayExtras · Java" />
       </div>
       <h3>1. Pop</h3>
+      <p>
+        Accept indices from zero through <code>size - 1</code>, and reject
+        negative indices or indices at or beyond size. Save the removed value
+        before shifting, so it can be returned afterward.
+      </p>
       <p>
         If i is <code>size - 1</code>, removing the last element is the same
         as <code>popBack()</code>. Otherwise, shift all elements after i one
@@ -116,6 +124,14 @@ export default function Extra() {
         backing array. A deque may be a better choice for frequent insertions
         at both ends.
       </p>
+      <p>
+        Insertion accepts indices from zero through <code>size</code>, inclusive:
+        inserting at size adds to the end, and index zero is valid even when
+        empty. Call <code>append(0)</code> to make room, then shift from right to
+        left so no value is overwritten before it is copied. Finally, write x
+        at index i. Inserting at the end has O(1) amortized cost; general
+        insertion has O(n) amortized cost because shifting is still necessary.
+      </p>
 
       <h3>4. Remove</h3>
       <p>
@@ -128,6 +144,11 @@ export default function Extra() {
       </p>
 
       <h2>Key Takeaways</h2>
+      <p>
+        The extra methods use O(1) auxiliary space for searching and shifting.
+        If append or pop back triggers resizing, it temporarily requires O(n)
+        extra space.
+      </p>
       <div className={extraStyles.tableWrapper}>
         <table>
           <caption>Time complexity of dynamic array operations</caption>

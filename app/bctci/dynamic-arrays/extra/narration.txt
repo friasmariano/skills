@@ -1,0 +1,41 @@
+Let's extend our dynamic array with four extra operations: pop by index, contains, insert, and remove by value.
+
+The implementation builds on the dynamic array from Problem twenty-five point one. We already have append, get, set, size, and pop back. We can combine those methods to implement the new operations without accessing the backing array directly.
+
+First, remember the difference between worst-case and amortized time. Append and pop back usually take constant time. A resize can make one operation take linear time, but doubling when full and shrinking below one quarter full keep their amortized cost constant. Storage takes linear space in the number of live elements, with a minimum of ten slots. During resizing, both arrays temporarily coexist.
+
+Now, pop by index. This operation removes an element at a specific index and returns its value. The index must be at least zero and strictly less than size. An empty array has no valid index.
+
+Save the value at the requested index before changing anything. Then shift every later element one slot to the left. Finally, call pop back to reduce size and handle shrinking, and return the saved value.
+
+For example, start with three, one, four, one, five, nine, two. Popping index two removes four. Move one, five, nine, and two left by one position. The result is three, one, one, five, nine, two. Size drops from seven to six, and capacity stays ten.
+
+The shift loop moves forward, from the removed index toward the end. Each assignment copies the next element into the current slot. Because we already saved the removed value, it is safe to overwrite that slot.
+
+Popping the last index requires no shifts, so it behaves like pop back. Popping the first index shifts all the remaining elements, giving linear worst-case time. General pop by index also has linear amortized time: repeatedly removing from the front requires a total number of shifts proportional to n squared. If you frequently remove from both ends, consider a double-ended queue.
+
+Second, contains. This method returns true when a value appears in the array, and false otherwise. Scan the live indices from zero to size minus one. Compare each element with the target and return true at the first match. If the scan finishes without a match, return false.
+
+For an empty array, the loop does no work and returns false. A match at the first index takes constant time. A missing value, or a match at the last index, requires scanning all n elements, so the worst case is linear time. Do not search the unused capacity: those slots are outside the logical array.
+
+Third, insert. This operation adds a value at a chosen index. Unlike get, set, and pop, insertion allows an index equal to size. That position means inserting at the end. Therefore, valid indices range from zero through size, inclusive. For an empty array, index zero is valid.
+
+Make room by appending a temporary zero. Append handles any necessary growth and increases size by one. Then shift the existing elements right, working backward from the new last index toward the insertion point. Finally, set the requested index to the new value.
+
+Why move backward? If we shifted right while moving forward, we would overwrite an element before copying it. Moving from right to left preserves each value until it has been moved.
+
+For example, insert eight at index one into three, one, four. First append zero, making four live slots. Move four right, then move one right. Write eight at index one. The result is three, eight, one, four.
+
+Insertion at the beginning shifts all n existing elements. A resize can also copy the array. The worst-case time is linear. Insertion at the end requires no shifts and has the same constant amortized cost as append. General insertion remains linear even with amortized analysis because repeated insertions at the front always require shifting.
+
+Fourth, remove by value. Pop uses an index; remove searches for a value. Remove only the first occurrence and return its original index. If the value is absent, return minus one.
+
+Scan from left to right. When a matching value is found, call pop at that index and return the index immediately. For example, removing one from three, one, four, one returns index one and leaves three, four, one. The later occurrence stays in the array.
+
+Searching takes up to linear time, and shifting also takes up to linear time. Adding those costs still gives linear time, not quadratic time. Contains alone is not sufficient for this implementation because its boolean result does not tell us where the match occurred.
+
+All four extra methods use constant auxiliary space apart from any resizing performed by append or pop back. A resize can temporarily require linear extra space.
+
+Here are the key takeaways. Get, set, and size take constant time. Append and pop back take constant amortized time. Pop by index, contains, insert, and remove by value take linear time in the worst case. Dynamic resizing manages capacity, but it does not eliminate the cost of searching or shifting elements.
+
+These techniques are building blocks for stacks, heaps, hash sets, and maps. The chapter's online resources include practice with an AI interviewer and full code solutions in multiple languages.

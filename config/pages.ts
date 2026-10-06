@@ -28,6 +28,11 @@ export const appPages: AppPage[] = [
     ],
   },
   {
+    href: '/problem-solving',
+    title: 'Problem Solving',
+    subtitle: 'Notice the clues, recognize patterns, practice deliberately, and explain your reasoning.',
+  },
+  {
     href: '/bctci',
     title: 'BCTCI',
     subtitle: 'Prepare for coding interviews, one concept at a time.',

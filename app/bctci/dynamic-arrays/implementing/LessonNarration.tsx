@@ -3,10 +3,28 @@
 import { useRef, useState } from "react";
 import styles from "./page.module.css";
 
-export default function LessonNarration() {
+export default function LessonNarration({
+  src = "/audio/implementing-dynamic-arrays-siri-voice-2.m4a",
+  label = "Implementing dynamic arrays lesson narration",
+  captionsSrc,
+}: { src?: string; label?: string; captionsSrc?: string }) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false);
   const [error, setError] = useState("");
+  const [captionsEnabled, setCaptionsEnabled] = useState(true);
+  const [caption, setCaption] = useState("");
+
+  function updateCaption() {
+    const audio = audioRef.current;
+    const track = audio?.textTracks[0];
+    if (!audio || !track) return;
+    // Audio elements do not render native captions, so render the active cue below.
+    track.mode = "hidden";
+    const active = Array.from(track.cues ?? []).filter(
+      (cue) => cue.startTime <= audio.currentTime && audio.currentTime < cue.endTime,
+    );
+    setCaption(active.map((cue) => (cue as VTTCue).text).join(" "));
+  }
 
   async function togglePlayback() {
     const audio = audioRef.current;
@@ -38,11 +56,20 @@ export default function LessonNarration() {
         </svg>
       </button>
       <audio id="lesson-narration" ref={audioRef} controls preload="none"
-        aria-label="Implementing dynamic arrays lesson narration"
-        src="/audio/implementing-dynamic-arrays-siri-voice-2.m4a"
+        aria-label={label}
+        src={src}
         onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)}
-        onEnded={() => setPlaying(false)}
-        onError={() => { setPlaying(false); setError("Audio could not load. Please try again."); }} />
+        onTimeUpdate={updateCaption} onSeeked={updateCaption}
+        onEnded={() => { setPlaying(false); setCaption(""); }}
+        onError={() => { setPlaying(false); setError("Audio could not load. Please try again."); }}>
+        {captionsSrc && <track kind="captions" src={captionsSrc} srcLang="en" label="English" default onLoad={updateCaption} />}
+      </audio>
+      {captionsSrc && <button type="button" className={styles.captionsButton}
+        aria-pressed={captionsEnabled} aria-controls="lesson-captions"
+        onClick={() => setCaptionsEnabled((enabled) => !enabled)}>Captions</button>}
+      {captionsSrc && captionsEnabled && <div id="lesson-captions" className={styles.captions}>
+        {caption || (playing ? "" : "Captions will appear here during narration.")}
+      </div>}
       {error && <span role="alert">{error}</span>}
     </div>
   );
