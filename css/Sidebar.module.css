@@ -8,6 +8,15 @@
   z-index: 30;
 }
 .desktop nav { position: sticky; top: 112px; max-height: calc(100dvh - 144px); overflow-y: auto; }
+.desktop nav, .drawer { scrollbar-width: thin; scrollbar-color: rgba(255, 255, 255, .2) transparent; }
+.desktop nav::-webkit-scrollbar, .drawer::-webkit-scrollbar { width: 28px; height: 3px; }
+.desktop nav::-webkit-scrollbar-track, .drawer::-webkit-scrollbar-track { background: transparent; }
+.desktop nav::-webkit-scrollbar-thumb, .drawer::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, .2); border-radius: 999px; }
+/* Reserve 25px to the left while keeping the visible vertical thumb 3px wide. */
+.desktop nav::-webkit-scrollbar-thumb:vertical, .drawer::-webkit-scrollbar-thumb:vertical { border-left: 25px solid transparent; background-clip: padding-box; }
+@supports selector(::-webkit-scrollbar) {
+  .desktop nav, .drawer { scrollbar-width: auto; scrollbar-color: auto; }
+}
 .links { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
 .nested { margin-top: 12px; margin-left: 12px; padding-left: 8px; }
 .link { display: flex; align-items: center; gap: 16px; padding: 16px; border-radius: 14px; color: var(--foreground); text-decoration: none; font-size: .9rem; line-height: 1.5; background: transparent; border: 1px solid transparent; }

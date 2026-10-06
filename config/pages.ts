@@ -9,6 +9,25 @@ export type AppPage = {
 export const appPages: AppPage[] = [
   { href: '/', title: 'Skills', navigationTitle: 'Home', subtitle: 'Your Developer Gym' },
   {
+    href: '/interview-prep',
+    title: 'Interview Prep',
+    subtitle: 'Build confidence for technical interviews with focused practice and preparation.',
+    children: [
+      {
+        href: '/interview-prep/opportunities',
+        title: 'Opportunities',
+        subtitle: 'Track your current opportunities and focus on your next interview.',
+        children: [
+          {
+            href: '/interview-prep/opportunities/preparation',
+            title: 'Preparation Path',
+            subtitle: 'Prepare for the opportunity currently in focus.',
+          },
+        ],
+      },
+    ],
+  },
+  {
     href: '/bctci',
     title: 'BCTCI',
     subtitle: 'Prepare for coding interviews, one concept at a time.',

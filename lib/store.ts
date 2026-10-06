@@ -1,19 +1,30 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
-import { persistReducer, persistStore } from "redux-persist";
+import { createMigrate, persistReducer, persistStore } from "redux-persist";
 import themeReducer from "./features/theme/store/theme-slice";
 import toastReducer from "./features/toast/store/toast-slice";
 import featuredReducer from "./features/featured/store/featured-slice";
+import opportunitiesReducer, { initialOpportunitiesState } from "./features/opportunities/store/opportunities-slice";
 
 const rootReducer = combineReducers({
   theme: themeReducer,
   toast: toastReducer,
   featured: featuredReducer,
+  opportunities: opportunitiesReducer,
 });
 
 const persisteConfig = {
   key: "root",
   storage,
+  version: 1,
+  migrate: createMigrate({
+    1: (state) => {
+      if (!state) return state;
+      const previous = state as typeof state & { opportunities?: { items?: unknown[] } };
+      if (previous.opportunities?.items?.length) return state;
+      return { ...state, opportunities: initialOpportunitiesState };
+    },
+  }),
 };
 
 const persistedReducer = persistReducer(persisteConfig, rootReducer);
