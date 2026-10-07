@@ -1,15 +1,18 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { togglPreparationSteps } from "@/config/preparationPaths";
+import { togglPreparationSteps, type PreparationStep } from "@/config/preparationPaths";
 import { togglePreparationStep } from "@/lib/features/opportunities/store/opportunities-slice";
 import styles from "@/css/Opportunities.module.css";
 import pathStyles from "@/css/PreparationPath.module.css";
 import TechnicalReview from "./TechnicalReview";
+import PreparationStepModal from "./PreparationStepModal";
 
 export default function PreparationPage() {
   const dispatch = useAppDispatch();
+  const [selectedStep, setSelectedStep] = useState<PreparationStep | null>(null);
   const opportunity = useAppSelector(state =>
     state.opportunities.items.find(item => item.id === state.opportunities.focusedId)
   );
@@ -66,8 +69,13 @@ export default function PreparationPage() {
                     <div className={`${pathStyles.content} ${pathStyles.whiteboard}`}>
                     <p className={pathStyles.eyebrow}>Step {index + 1} · {completed.includes(step.id) ? "Complete" : "To prepare"}</p>
                     <h3>{step.title}</h3>
-                    <p className={styles.stepDescription}>{step.description}</p>
-                    <ul className={styles.tasks}>{step.tasks.map(task => <li key={task}>{task}</li>)}</ul>
+                    <button
+                      type="button"
+                      className={pathStyles.detailsButton}
+                      aria-haspopup="dialog"
+                      aria-label={`Show details: ${step.title}`}
+                      onClick={() => setSelectedStep(step)}
+                    >Show details</button>
                     <label className={styles.completion}>
                       <input type="checkbox" checked={completed.includes(step.id)} onChange={() => dispatch(togglePreparationStep({ opportunityId: opportunity.id, stepId: step.id }))} />
                       Mark “{step.title}” complete
@@ -76,6 +84,7 @@ export default function PreparationPage() {
                   </li>
                 ))}
               </ol>
+              <PreparationStepModal step={selectedStep} onClose={() => setSelectedStep(null)} />
             </>
           ) : (
             <p className={styles.empty}>A preparation path has not been added for this opportunity yet.</p>

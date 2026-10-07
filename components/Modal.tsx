@@ -48,7 +48,7 @@ export default function Modal({ isOpen, onClose, children,
             }}>
             <div
                 style={{
-                    backgroundColor: isDark ? 'rgba(255,255,255,0)' : 'rgba(232, 231, 231, 0.2)',
+                    backgroundColor: isDark ? 'rgba(8, 30, 56, 0.5)' : 'rgba(232, 231, 231, 0.2)',
                     borderRadius: '20px',
                     boxShadow: '0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.1)',
                     width: getSizeClass(size),
