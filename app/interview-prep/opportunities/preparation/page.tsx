@@ -63,7 +63,7 @@ export default function PreparationPage() {
                         </svg>
                       </span>
                     </div>
-                    <div className={pathStyles.content}>
+                    <div className={`${pathStyles.content} ${pathStyles.whiteboard}`}>
                     <p className={pathStyles.eyebrow}>Step {index + 1} · {completed.includes(step.id) ? "Complete" : "To prepare"}</p>
                     <h3>{step.title}</h3>
                     <p className={styles.stepDescription}>{step.description}</p>

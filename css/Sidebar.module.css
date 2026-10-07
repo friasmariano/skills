@@ -1,5 +1,5 @@
 .desktop {
-  --sidebar-width: 280.5px;
+  --sidebar-width: 308.55px;
   position: relative;
   flex-shrink: 0;
   align-self: stretch;
@@ -8,14 +8,15 @@
   min-width: 0;
   overflow-x: clip;
   transition: width 250ms cubic-bezier(0.22, 1, 0.36, 1), padding 250ms cubic-bezier(0.22, 1, 0.36, 1);
-  padding: 32px 16px;
-  border-right: 1px solid color-mix(in srgb, var(--foreground) 12%, transparent);
+  padding: 32px 20px 32px 16px;
   background: transparent;
+  box-shadow: 8px 0 16px -8px rgba(2, 22, 39, .25);
+  clip-path: inset(0 -32px 0 0);
   z-index: 30;
 }
 .desktop.collapsed { width: 40px; padding: 32px 0; }
 .desktopLinks {
-  width: calc(var(--sidebar-width) - 32px);
+  width: calc(var(--sidebar-width) - 36px);
   opacity: 1;
   transform: translateX(0);
   visibility: visible;
@@ -23,26 +24,31 @@
 }
 .collapsed .desktopLinks { opacity: 0; transform: translateX(-16px); visibility: hidden; pointer-events: none; }
 .desktopToggle {
-  position: sticky;
-  top: 88px;
-  display: block;
-  margin: -20px 0 16px auto;
-  width: 28px;
-  height: 28px;
-  border: 1px solid color-mix(in srgb, var(--foreground) 20%, transparent);
-  border-radius: 8px;
-  background: var(--panel-background);
-  color: var(--foreground);
+  position: fixed;
+  top: 46%;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding-left: 5px;
+  width: 50px;
+  height: 55px;
+  border: 0;
+  border-radius: 0 50% 50% 0;
+  background: linear-gradient(267deg, rgba(255, 80, 0, 1) 41%, rgba(139, 62, 27, 1) 100%);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, .2);
+  color: white;
   cursor: pointer;
-  z-index: 1;
+  z-index: 35;
 }
-.collapsed .desktopToggle { margin-right: 6px; }
 .desktopToggle:focus-visible { outline: 2px solid var(--foreground); outline-offset: 3px; }
+.desktopToggle i::before, .toggler i::before { -webkit-text-stroke: 1px currentColor; }
 .desktop nav { position: sticky; top: 112px; max-height: calc(100dvh - 144px); overflow-y: auto; }
-.desktop nav, .drawer { scrollbar-width: thin; scrollbar-color: rgba(255, 255, 255, .2) transparent; }
+.desktop nav, .drawer { scrollbar-width: thin; scrollbar-color: transparent transparent; }
 .desktop nav::-webkit-scrollbar, .drawer::-webkit-scrollbar { width: 28px; height: 3px; }
 .desktop nav::-webkit-scrollbar-track, .drawer::-webkit-scrollbar-track { background: transparent; }
-.desktop nav::-webkit-scrollbar-thumb, .drawer::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, .2); border-radius: 999px; }
+.desktop nav::-webkit-scrollbar-thumb, .drawer::-webkit-scrollbar-thumb { background: transparent; border-radius: 999px; }
 /* Reserve 25px to the left while keeping the visible vertical thumb 3px wide. */
 .desktop nav::-webkit-scrollbar-thumb:vertical, .drawer::-webkit-scrollbar-thumb:vertical { border-left: 25px solid transparent; background-clip: padding-box; }
 @supports selector(::-webkit-scrollbar) {
@@ -51,24 +57,28 @@
 .links { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
 .nested { margin-top: 12px; margin-left: 12px; padding-left: 8px; }
 .link { display: flex; align-items: center; gap: 16px; padding: 16px; border-radius: 14px; color: var(--foreground); text-decoration: none; font-size: .9rem; line-height: 1.5; background: transparent; border: 1px solid transparent; }
-nav > .links > li { border-left: 1px solid color-mix(in srgb, var(--foreground) 18%, transparent); }
-.link:hover { background: color-mix(in srgb, var(--foreground) 20%, transparent); }
-.active { margin-left: 10px; background: color-mix(in srgb, var(--foreground) 20%, transparent); font-weight: 600; }
+.link:hover, .link:focus, .active {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(222, 222, 222, 1) 73%);
+  color: #0a233c;
+  box-shadow: 0 4px 12px rgba(2, 22, 39, .18);
+}
+.active { font-weight: 600; }
 .ancestor { font-weight: 600; }
 .link:focus-visible, .toggler:focus-visible, .close:focus-visible { outline: 2px solid var(--foreground); outline-offset: 3px; }
 .toggler { display: none; }
 .mobile { position: fixed; inset: 0; width: 100%; max-width: none; height: 100dvh; max-height: none; padding: 0; margin: 0; border: 0; background: transparent; color: var(--foreground); }
 .mobile::backdrop { background: rgba(2, 22, 39, .45); backdrop-filter: blur(5px); }
-.drawer { width: min(300px, 85vw); height: 100%; overflow-y: auto; padding: 24px 16px; background: linear-gradient(to bottom, var(--panel-background), color-mix(in srgb, var(--foreground) 12%, transparent)); backdrop-filter: blur(20px); animation: drawerEnter 200ms ease-out; }
+.drawer { width: min(330px, 93.5vw); height: 100%; overflow-y: auto; padding: 24px 16px; background: linear-gradient(to bottom, var(--panel-background), color-mix(in srgb, var(--foreground) 12%, transparent)); box-shadow: 8px 0 16px -8px rgba(2, 22, 39, .25); backdrop-filter: blur(20px); animation: drawerEnter 200ms ease-out; }
 @keyframes drawerEnter { from { transform: translateX(-100%); } to { transform: translateX(0); } }
 @media (prefers-reduced-motion: reduce) { .drawer { animation: none; } .desktop, .desktopLinks { transition: none; } }
 .close { display: block; margin: 0 0 28px auto; padding: 10px; background: transparent; border: 0; color: inherit; cursor: pointer; }
 @media (min-width: 640px) and (max-width: 991px) {
-  .desktop { --sidebar-width: 220px; padding: 32px 12px; }
-  .desktopLinks { width: calc(var(--sidebar-width) - 24px); }
+  .desktop { --sidebar-width: 242px; padding: 32px 20px 32px 12px; }
+  .desktopLinks { width: calc(var(--sidebar-width) - 32px); }
   .desktop .link { padding: 16px 12px; }
 }
 @media (max-width: 639px) {
   .desktop { display: none; }
-  .toggler { display: block; position: absolute; top: 12px; left: 0; padding: 16px 10px; border: 0; border-radius: 0 12px 12px 0; background: #102f49; color: white; z-index: 35; cursor: pointer; box-shadow: 0 4px 20px rgba(0, 0, 0, .2); }
+  .desktopToggle { display: none; }
+  .toggler { width: 50px; height: 55px; top: 46%; position: fixed; left: 0; margin: 0; padding-left: 5px; border: 0; border-radius: 0 50% 50% 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(267deg, rgba(255, 80, 0, 1) 41%, rgba(139, 62, 27, 1) 100%); color: white; z-index: 35; cursor: pointer; box-shadow: 0 4px 20px rgba(0, 0, 0, .2); }
 }

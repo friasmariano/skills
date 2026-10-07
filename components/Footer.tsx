@@ -8,7 +8,7 @@ export default function Footer() {
                 style={{ textAlign: 'center', fontSize: '0.9rem',
                          padding: '25.5px 0px 30px 0px',
                          boxShadow: '0 4px 70px rgba(0,0,0,0.1)',
-                         marginTop: '15px' }}>
+                         marginTop: '0' }}>
             © {currentYear} Mariano Frias. All rights reserved.
         </footer>
     );
