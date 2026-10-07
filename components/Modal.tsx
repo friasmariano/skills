@@ -65,6 +65,7 @@ export default function Modal({ isOpen, onClose, children,
 
                     {/* Header */}
                     <div style={{ display: 'flex', justifyContent: 'space-between',
+                                  flexShrink: 0,
                                   padding: '20px 22px 18px 30px',
                                   boxShadow: '0 4px 25px rgba(0, 0, 0, 0.2)',
                                   background: 'var(--semitransparent-gradient)',
@@ -97,7 +98,7 @@ export default function Modal({ isOpen, onClose, children,
 
                     {/* Body */}
                     <div style={{ display: 'flex',
-                                  justifyContent: 'center',
+                                  justifyContent: 'flex-start',
                                   alignItems: 'center',
                                   flexDirection: 'column',
                                   minHeight: 0,
@@ -106,7 +107,7 @@ export default function Modal({ isOpen, onClose, children,
                     </div>
 
                     {/* Footer */}
-                    <section>
+                    <section style={{ flexShrink: 0 }}>
                             <hr style={{ opacity: '0.07'}} />
                             <div style={{ display: 'flex',
                                       padding: '25px 25px 40px 25px',

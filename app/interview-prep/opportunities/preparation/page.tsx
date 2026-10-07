@@ -3,16 +3,23 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { togglPreparationSteps, type PreparationStep } from "@/config/preparationPaths";
+import { togglPreparationSteps, togglPreparationTiers, togglAnswerFrameworks, togglOfficialContext, togglOfficialResources, togglOfficialVideos, type PreparationStep, type PreparationVideo as Video } from "@/config/preparationPaths";
 import { togglePreparationStep } from "@/lib/features/opportunities/store/opportunities-slice";
 import styles from "@/css/Opportunities.module.css";
 import pathStyles from "@/css/PreparationPath.module.css";
 import TechnicalReview from "./TechnicalReview";
 import PreparationStepModal from "./PreparationStepModal";
+import PreparationVideo from "./PreparationVideo";
+import Modal from "@/components/Modal";
+import videoStyles from "./PreparationVideo.module.css";
+import referenceStyles from "./PreparationReference.module.css";
+import GreenWalletStoryBank from "./GreenWalletStoryBank";
 
 export default function PreparationPage() {
   const dispatch = useAppDispatch();
   const [selectedStep, setSelectedStep] = useState<PreparationStep | null>(null);
+  const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
+  const [isStoryBankOpen, setIsStoryBankOpen] = useState(false);
   const opportunity = useAppSelector(state =>
     state.opportunities.items.find(item => item.id === state.opportunities.focusedId)
   );
@@ -44,13 +51,36 @@ export default function PreparationPage() {
                 <span><strong>30–240 sec</strong> per question</span>
                 <span><strong>3</strong> unscored practice questions</span>
               </div>
-              <p>Based on your supplied assessment overview and preparation notes. Work through the steps in order, then mark each one complete.</p>
+              <p>Twelve focused steps from your supplied preparation guide. Use the priority tiers to choose what to study first, then mark each step complete. Topics are preparation guidance, not guaranteed assessment questions.</p>
               <a className={pathStyles.bannerLink} href="https://toggl.com/candidate-booklet/" target="_blank" rel="noopener noreferrer">Read Toggl’s candidate booklet <span>(opens in a new tab) ↗</span></a>
             </div>
           )}
           </header>
           {hasPath ? (
             <>
+              <section className={referenceStyles.reference} aria-labelledby="official-toggl-heading">
+                <h3 id="official-toggl-heading">Inside Toggl: product, culture, and hiring</h3>
+                <p>Reviewed October 7, 2026 against Toggl’s official resources below. The practice prompts apply those sources to your preparation.</p>
+                <nav aria-label="Official Toggl preparation resources">
+                  <ul className={referenceStyles.resources}>
+                    {togglOfficialResources.map(resource => <li key={resource.url}><a href={resource.url} target="_blank" rel="noopener noreferrer">{resource.title} <span>(opens in a new tab) ↗</span></a><p>{resource.detail}</p></li>)}
+                  </ul>
+                </nav>
+                <div className={referenceStyles.tiers}>
+                  {togglOfficialContext.map(item => <article key={item.title}><h4>{item.title}</h4><p>{item.detail}</p><p className={referenceStyles.callout}><strong>Practice:</strong> {item.prompt}</p></article>)}
+                </div>
+                <h4>Short official product lessons</h4>
+                <p>Use these examples alongside the culture and vocabulary steps. Videos play here in a modal; the longer walkthrough is limited to a relevant excerpt.</p>
+                {togglOfficialVideos.map(video => <PreparationVideo key={video.youtubeId} video={video} onWatch={() => setSelectedVideo(video)} />)}
+              </section>
+              <section className={referenceStyles.reference} aria-labelledby="preparation-priorities-heading">
+                <h3 id="preparation-priorities-heading">Where to focus first</h3>
+                <p>Allocate preparation time using the gaps exposed by the practice round. The step numbers organize the guide; these tiers set the study order.</p>
+                <div className={referenceStyles.tiers}>
+                  {togglPreparationTiers.map(tier => <article key={tier.title}><h4>{tier.title}</h4><p>{tier.topics}</p></article>)}
+                </div>
+                <p className={referenceStyles.callout}><strong>Algorithms:</strong> keep them in your broader interview routine. For immediate Toggl preparation, the supplied guide prioritizes TypeScript, React performance, state/data management, engineering judgment, and communication.</p>
+              </section>
               <div className={pathStyles.progress}>
                 <progress id="preparation-progress" max={togglPreparationSteps.length} value={completedCount} />
                 <label htmlFor="preparation-progress" aria-live="polite">{completedCount} of {togglPreparationSteps.length} steps complete</label>
@@ -69,6 +99,9 @@ export default function PreparationPage() {
                     <div className={`${pathStyles.content} ${pathStyles.whiteboard}`}>
                     <p className={pathStyles.eyebrow}>Step {index + 1} · {completed.includes(step.id) ? "Complete" : "To prepare"}</p>
                     <h3>{step.title}</h3>
+                    <p className={referenceStyles.priority}>{step.priority}</p>
+                    <p className={referenceStyles.description}>{step.description}</p>
+                    <div className={pathStyles.stepActions}>
                     <button
                       type="button"
                       className={pathStyles.detailsButton}
@@ -76,6 +109,16 @@ export default function PreparationPage() {
                       aria-label={`Show details: ${step.title}`}
                       onClick={() => setSelectedStep(step)}
                     >Show details</button>
+                    {step.id === "stories" && (
+                      <button
+                        type="button"
+                        className={`${pathStyles.detailsButton} ${pathStyles.storyBankButton}`}
+                        aria-haspopup="dialog"
+                        onClick={() => setIsStoryBankOpen(true)}
+                      >Open the six GreenWallet story cards</button>
+                    )}
+                    </div>
+                    <PreparationVideo video={step.video} onWatch={() => setSelectedVideo(step.video)} />
                     <label className={styles.completion}>
                       <input type="checkbox" checked={completed.includes(step.id)} onChange={() => dispatch(togglePreparationStep({ opportunityId: opportunity.id, stepId: step.id }))} />
                       Mark “{step.title}” complete
@@ -84,7 +127,31 @@ export default function PreparationPage() {
                   </li>
                 ))}
               </ol>
-              <PreparationStepModal step={selectedStep} onClose={() => setSelectedStep(null)} />
+              {isStoryBankOpen && (
+                <Modal isOpen onClose={() => setIsStoryBankOpen(false)} title="GreenWallet story bank" size="full">
+                  <GreenWalletStoryBank />
+                </Modal>
+              )}
+              {selectedStep && <PreparationStepModal step={selectedStep} onClose={() => setSelectedStep(null)} />}
+              {selectedVideo && (
+                <Modal isOpen onClose={() => setSelectedVideo(null)} title={selectedVideo.focus} size="large">
+                  <div className={videoStyles.modalContent}>
+                    <PreparationVideo video={selectedVideo} showPlayer />
+                  </div>
+                </Modal>
+              )}
+              <section className={referenceStyles.reference} aria-labelledby="answer-frameworks-heading">
+                <h3 id="answer-frameworks-heading">Answer frameworks to recall</h3>
+                <p>Decision → reasoning → validation/metrics. Three strong sentences can be enough.</p>
+                <div className={referenceStyles.tableWrap}>
+                  <table>
+                    <caption className={referenceStyles.tableCaption}>Choose a concise structure for each question type</caption>
+                    <thead><tr><th scope="col">Question</th><th scope="col">Framework</th></tr></thead>
+                    <tbody>{togglAnswerFrameworks.map(item => <tr key={item.question}><th scope="row">{item.question}</th><td>{item.framework}</td></tr>)}</tbody>
+                  </table>
+                </div>
+                <p className={referenceStyles.callout}>When performance is involved, name at least one metric. Validate with representative workloads and compare results against requirements.</p>
+              </section>
             </>
           ) : (
             <p className={styles.empty}>A preparation path has not been added for this opportunity yet.</p>

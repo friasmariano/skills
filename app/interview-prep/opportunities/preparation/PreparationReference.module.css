@@ -1,0 +1,30 @@
+.reference {
+  margin: 32px 0;
+  padding: clamp(20px, 3vw, 32px);
+  border: 1px solid #8093a655;
+  border-radius: 20px;
+  background: var(--background);
+  color: var(--foreground);
+  line-height: 1.7;
+}
+.reference h3 { margin: 0 0 12px; font-size: 1.4rem; }
+.reference p { margin: 0 0 16px; }
+.resources { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 24px 0; padding: 0; list-style: none; }
+.resources li { padding: 20px; border: 1px solid #8093a655; border-radius: 14px; }
+.resources a { font-weight: 700; overflow-wrap: anywhere; }
+.resources a span { font-size: .8rem; font-weight: 400; }
+.resources a:focus-visible { outline: 2px solid #5d9fce; outline-offset: 4px; }
+.resources p { margin: 8px 0 0; }
+.tiers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: 24px 0; }
+.tiers article { padding: 20px; border: 1px solid #8093a655; border-radius: 14px; }
+.tiers h4 { margin: 0 0 12px; font-size: 1rem; }
+.tiers p { margin: 0; overflow-wrap: anywhere; }
+.reference .callout { margin: 20px 0 0; padding: 16px 20px; border-left: 3px solid #5d9fce; background: #5d9fce15; }
+.priority { color: #7e2870; font-weight: 700; font-size: .85rem; margin-bottom: 12px; }
+.description { line-height: 1.65; margin-bottom: 20px; }
+.tableWrap { overflow-x: auto; }
+.tableWrap table { width: 100%; border-collapse: collapse; }
+.tableCaption { text-align: left; padding: 0 0 12px; }
+.tableWrap th, .tableWrap td { text-align: left; padding: 14px; border-bottom: 1px solid #8093a655; vertical-align: top; }
+.tableWrap thead { background: #5d9fce15; }
+@media (max-width: 900px) { .tiers, .resources { grid-template-columns: minmax(0, 1fr); } }

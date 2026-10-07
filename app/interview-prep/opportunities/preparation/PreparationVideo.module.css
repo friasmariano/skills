@@ -1,0 +1,13 @@
+.video { line-height: 1.6; overflow-wrap: anywhere; }
+.compact { margin: 20px 0; padding: 16px; border: 1px solid #dce2e8; border-radius: 12px; background: #f5f8fc; color: #263445; }
+.expanded { margin-top: 24px; padding-top: 24px; border-top: 1px solid #8093a655; color: var(--foreground); }
+.video .label { margin: 0 0 12px; font-size: .8rem; font-weight: 700; }
+.video .title { margin: 12px 0 0; font-weight: 600; }
+.video .watchButton { display: inline-flex; align-items: center; gap: 10px; padding: 10px 16px; border: 1px solid #174b8a; border-radius: 10px; background: #174b8a; color: #fff; font: inherit; font-weight: 600; cursor: pointer; }
+.watchButton:hover { filter: brightness(1.12); }
+.watchButton:focus-visible { outline: 2px solid #174b8a; outline-offset: 4px; }
+.modalContent { width: 100%; flex-shrink: 0; padding: clamp(20px, 4vw, 32px); }
+.modalContent .expanded { margin: 0; padding: 0; border: 0; }
+.video .meta { margin: 8px 0 0; font-size: .85rem; }
+.player { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; border-radius: 12px; background: #101820; margin-bottom: 16px; }
+.video .practice { margin: 16px 0 0; }

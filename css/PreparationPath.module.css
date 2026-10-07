@@ -211,10 +211,41 @@
 .step[data-complete="true"] .eyebrow::after { content: " ✓"; }
 .modalContent {
   width: 100%;
+  flex-shrink: 0;
   padding: clamp(20px, 4vw, 32px);
+  padding-top: clamp(32px, 5vw, 48px);
   color: var(--foreground);
   overflow-wrap: anywhere;
 }
+.assessmentToggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 20px;
+  padding: 16px;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(222, 222, 222, 1) 73%);
+  box-shadow: 0 4px 12px rgba(2, 22, 39, .18);
+  color: #0a233c;
+  font-size: .9rem;
+  line-height: 1.5;
+  font-weight: 600;
+  cursor: pointer;
+}
+.assessmentToggle:focus-visible { outline: 2px solid var(--foreground); outline-offset: 3px; }
+.assessmentToggle:hover { filter: brightness(1.1); }
+.assessmentIntroduction { width: 100%; padding: clamp(16px, 3vw, 40px); line-height: 1.65; }
+.assessmentIntro { color: var(--foreground); margin: 0 0 24px; }
+.productCard, .expectationsCard { padding: clamp(20px, 3vw, 32px); border-radius: 18px; overflow-wrap: anywhere; }
+.productCard { background: #f8faff; border: 1px solid #d5ddef; color: #7a8191; }
+.expectationsCard { margin-top: 28px; background: #eff6ff; border: 2px solid #92c4ff; color: #294698; }
+.productCard h3, .expectationsCard h3 { display: flex; align-items: center; gap: 14px; margin: 0 0 20px; font-size: 1.25rem; font-weight: 600; line-height: 1.4; }
+.productCard h3, .productCard strong { color: #171b22; }
+.productCard h3 i { color: #0081a1; }
+.expectationsCard h3 i { color: #2457e8; }
+.productCard p, .expectationsCard p { margin: 0; }
+.productCard ul { list-style: none; padding: 0; margin: 20px 0; display: grid; gap: 12px; }
 .detailsButton, .page .detailsButton {
   background: linear-gradient(180deg,rgba(70, 128, 199, 1) 0%, rgba(23, 75, 138, 1) 53%, rgba(12, 42, 79, 1) 100%);
   box-shadow: inset 0 1px 1px #ffffff40, 0 6px 14px rgba(12, 42, 79, .4);
@@ -228,6 +259,10 @@
 }
 .detailsButton:hover { filter: brightness(1.12); }
 .detailsButton:focus-visible { outline: 2px solid #60a5fa; outline-offset: 4px; }
+.stepActions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.storyBankButton, .page .storyBankButton {
+  background: linear-gradient(180deg,rgba(87, 199, 133, 1) 0%, rgba(25, 107, 59, 1) 100%);
+}
 @media (max-width: 1100px) {
   .step { grid-template-columns: 200px minmax(0, 1fr); gap: 32px; }
   .path::before { left: 122px; }

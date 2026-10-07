@@ -17,8 +17,16 @@
 }
 .title {
   margin: 0;
+  font-family: var(--font-noto-sans), sans-serif;
   font-size: clamp(3rem, 6vw, 4.5rem);
+  font-weight: 600;
   line-height: 1.15;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(232, 232, 232, 1) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.45));
 }
 .subtitle {
   margin: 12px 0 0;
