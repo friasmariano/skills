@@ -9,6 +9,18 @@ export type AppPage = {
 export const appPages: AppPage[] = [
   { href: '/', title: 'Skills', navigationTitle: 'Home', subtitle: 'Your Developer Gym' },
   {
+    href: '/apps',
+    title: 'Apps',
+    subtitle: 'Build and improve applications with a practical engineering roadmap.',
+    children: [
+      {
+        href: '/apps/greenwallet',
+        title: 'Greenwallet',
+        subtitle: 'Track the path from financial correctness to production readiness.',
+      },
+    ],
+  },
+  {
     href: '/interview-prep',
     title: 'Interview Prep',
     subtitle: 'Build confidence for technical interviews with focused practice and preparation.',

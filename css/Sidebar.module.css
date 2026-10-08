@@ -64,6 +64,13 @@
 }
 .active { font-weight: 600; }
 .ancestor { font-weight: 600; }
+.linkRow { position: relative; display: flex; align-items: center; }
+.linkRow .link { flex: 1; min-width: 0; }
+.linkRow.hasChildren .link { padding-right: 48px; }
+.sectionToggle { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); display: grid; place-items: center; width: 32px; height: 36px; border: 0; border-radius: 10px; background: transparent; color: var(--foreground); cursor: pointer; font-size: 12px; }
+.linkRow:has(.link:hover) .sectionToggle, .linkRow:has(.link:focus) .sectionToggle, .linkRow:has(.active) .sectionToggle { color: #0a233c; }
+.sectionToggle:hover { background: color-mix(in srgb, var(--foreground) 10%, transparent); }
+.sectionToggle:focus-visible { outline: 2px solid var(--foreground); outline-offset: 3px; }
 .link:focus-visible, .toggler:focus-visible, .close:focus-visible { outline: 2px solid var(--foreground); outline-offset: 3px; }
 .toggler { display: none; }
 .mobile { position: fixed; inset: 0; width: 100%; max-width: none; height: 100dvh; max-height: none; padding: 0; margin: 0; border: 0; background: transparent; color: var(--foreground); }

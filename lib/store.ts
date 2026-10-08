@@ -4,6 +4,7 @@ import { createMigrate, persistReducer, persistStore } from "redux-persist";
 import themeReducer from "./features/theme/store/theme-slice";
 import toastReducer from "./features/toast/store/toast-slice";
 import featuredReducer from "./features/featured/store/featured-slice";
+import greenwalletReducer from "./features/greenwallet/greenwallet-slice";
 import opportunitiesReducer, { initialOpportunitiesState } from "./features/opportunities/store/opportunities-slice";
 
 const rootReducer = combineReducers({
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   toast: toastReducer,
   featured: featuredReducer,
   opportunities: opportunitiesReducer,
+  greenwallet: greenwalletReducer,
 });
 
 const persisteConfig = {
