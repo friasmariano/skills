@@ -1,5 +1,6 @@
 import type { PreparationVideo as Video } from "@/config/preparationPaths";
 import styles from "./PreparationVideo.module.css";
+import VideoCard from "./VideoCard";
 
 type Props = { video: Video } & (
   | { showPlayer: true; onWatch?: never }
@@ -12,8 +13,12 @@ export default function PreparationVideo({ video, showPlayer = false, onWatch }:
   if (video.endSeconds !== undefined) params.set("end", String(video.endSeconds));
   const query = params.size ? `?${params.toString()}` : "";
 
+  if (!showPlayer && onWatch) {
+    return <VideoCard title={video.title} presenter={video.channel} focus={video.focus} timing={video.duration} onWatch={onWatch} />;
+  }
+
   return (
-    <div className={`${styles.video} ${showPlayer ? styles.expanded : styles.compact}`}>
+    <div className={`${styles.video} ${styles.expanded}`}>
       <p className={styles.label}>Reinforce learning · {video.duration}</p>
       {showPlayer && (
         <iframe
@@ -26,12 +31,7 @@ export default function PreparationVideo({ video, showPlayer = false, onWatch }:
           referrerPolicy="strict-origin-when-cross-origin"
         />
       )}
-      {showPlayer ? <p className={styles.title}>{video.title}</p> : (
-        <button className={styles.watchButton} type="button" onClick={onWatch} aria-haspopup="dialog" aria-label={`Watch video: ${video.title}`}>
-          <span aria-hidden="true">▶</span> Watch video · {video.duration}
-        </button>
-      )}
-      {!showPlayer && <p className={styles.title}>{video.title}</p>}
+      <p className={styles.title}>{video.title}</p>
       <p className={styles.meta}>{video.channel} · {video.focus}</p>
       {showPlayer && <p className={styles.practice}><strong>After watching:</strong> {video.practice}</p>}
     </div>

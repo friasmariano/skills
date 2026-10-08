@@ -7,8 +7,15 @@
   color: var(--foreground);
   line-height: 1.7;
 }
+.day { scroll-margin-top: 24px; margin-top: 48px; }
+.day + .day { border-top: 2px solid #8093a655; padding-top: 16px; }
 .reference h3 { margin: 0 0 12px; font-size: 1.4rem; }
 .reference p { margin: 0 0 16px; }
+.reference details { margin: 16px 0; padding: 16px 20px; border: 1px solid #8093a655; border-radius: 14px; scroll-margin-top: 24px; }
+.reference summary { cursor: pointer; font-weight: 700; }
+.reference summary:focus-visible { outline: 2px solid #5d9fce; outline-offset: 4px; }
+.reference details[open] summary { margin-bottom: 16px; }
+.reference li + li { margin-top: 8px; }
 .resources { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 24px 0; padding: 0; list-style: none; }
 .resources li { padding: 20px; border: 1px solid #8093a655; border-radius: 14px; }
 .resources a { font-weight: 700; overflow-wrap: anywhere; }

@@ -1,0 +1,38 @@
+.card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(16px, 3vw, 32px);
+  width: 100%;
+  box-sizing: border-box;
+  margin: 20px 0;
+  padding: clamp(20px, 3vw, 32px);
+  border: 1px solid #ffffff26;
+  border-radius: 24px;
+  background: #c42329;
+  color: #fff;
+  box-shadow: 0 8px 16px #57101520;
+  font: inherit;
+  line-height: 1.5;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background .15s ease, box-shadow .15s ease;
+}
+.card:hover { background: #aa1b22; color: #fff; text-decoration: none; box-shadow: 0 10px 20px #57101530; }
+.card:focus-visible { outline: 3px solid #5d9fce; outline-offset: 4px; }
+.identity { display: flex; align-items: center; gap: 20px; min-width: 0; }
+.play { display: grid; place-items: center; flex: 0 0 64px; height: 48px; border-radius: 14px; background: #8b1018; }
+.play svg { width: 32px; height: 32px; }
+.copy { display: grid; gap: 6px; min-width: 0; }
+.eyebrow { font-size: .75rem; letter-spacing: .06em; text-transform: uppercase; font-weight: 700; }
+.title { font-size: clamp(1.05rem, 1.7vw, 1.45rem); line-height: 1.25; font-weight: 800; overflow-wrap: anywhere; }
+.presenter { font-size: .85rem; }
+.focus { display: grid; gap: 8px; padding: 16px 20px; border: 2px solid #ffffffc0; overflow-wrap: anywhere; }
+.focusLabel { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+.action { font-size: .8rem; font-weight: 700; }
+@media (max-width: 650px) {
+  .card { grid-template-columns: minmax(0, 1fr); border-radius: 18px; }
+  .identity { gap: 14px; }
+  .play { flex-basis: 52px; height: 40px; }
+}

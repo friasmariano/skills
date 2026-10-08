@@ -1,5 +1,6 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import { togglPreparationSteps } from "@/config/preparationPaths";
+import { togglArchitectureLessons } from "@/config/togglArchitectureStudy";
 
 export type Opportunity = {
   id: string;
@@ -13,6 +14,7 @@ type OpportunitiesState = {
   priorityId: string | null;
   focusedId: string | null;
   completedPreparationSteps?: Record<string, string[]>;
+  completedArchitectureItems?: Record<string, string[]>;
 };
 
 export const initialOpportunitiesState: OpportunitiesState = {
@@ -38,6 +40,16 @@ const opportunitiesSlice = createSlice({
   name: "opportunities",
   initialState: initialOpportunitiesState,
   reducers: {
+    toggleArchitectureItem: (state, action: PayloadAction<{ opportunityId: string; itemId: string }>) => {
+      const { opportunityId, itemId } = action.payload;
+      if (opportunityId !== "toggl-senior-full-stack" || !state.items.some(item => item.id === opportunityId)) return;
+      if (itemId !== "breaks-review" && !togglArchitectureLessons.some(lesson => lesson.id === itemId)) return;
+      state.completedArchitectureItems ??= {};
+      const completed = state.completedArchitectureItems[opportunityId] ?? [];
+      state.completedArchitectureItems[opportunityId] = completed.includes(itemId)
+        ? completed.filter(id => id !== itemId)
+        : [...completed, itemId];
+    },
     togglePreparationStep: (state, action: PayloadAction<{ opportunityId: string; stepId: string }>) => {
       const { opportunityId, stepId } = action.payload;
       if (opportunityId !== "toggl-senior-full-stack" || !state.items.some(item => item.id === opportunityId)) return;
@@ -69,5 +81,5 @@ const opportunitiesSlice = createSlice({
   },
 });
 
-export const { addOpportunity, setPriorityOpportunity, setFocusedOpportunity, togglePreparationStep } = opportunitiesSlice.actions;
+export const { addOpportunity, setPriorityOpportunity, setFocusedOpportunity, togglePreparationStep, toggleArchitectureItem } = opportunitiesSlice.actions;
 export default opportunitiesSlice.reducer;

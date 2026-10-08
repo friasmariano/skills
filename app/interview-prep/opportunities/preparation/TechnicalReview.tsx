@@ -5,12 +5,14 @@ import "prismjs/components/prism-tsx";
 import { reviewTopics } from "./reviewTopics";
 import styles from "./TechnicalReview.module.css";
 
-export default function TechnicalReview() {
+export default function TechnicalReview({ topicIds }: { topicIds?: string[] }) {
+  const topics = topicIds ? topicIds.map(id => reviewTopics.find(topic => topic.id === id)!).filter(Boolean) : reviewTopics;
+  const headingId = `technical-review-${topicIds?.join("-") ?? "all"}`;
   return (
-    <section className={styles.review} aria-labelledby="technical-review-heading">
-      <h2 id="technical-review-heading">Technical review</h2>
+    <section className={styles.review} aria-labelledby={headingId}>
+      <h2 id={headingId}>Technical review</h2>
       <p>Open a topic to review the concepts, methods, examples, and interview exercises.</p>
-      {reviewTopics.map((topic) => (
+      {topics.map((topic) => (
         <details key={topic.id} className={styles.topic}>
           <summary><span>{topic.title}</span><span className={styles.count}>{topic.entries.length} reference entries</span></summary>
           <div className={styles.body}>
